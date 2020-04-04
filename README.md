@@ -11,10 +11,10 @@ $ cd betfund-scripts
 To install dependencies
 ```bash
 # NOTE: Configuraiton specific to machine required see output
-sh zk-install.sh install
+sh kafka/zk-install.sh install
 ```
 
 To start `zookeeper` and `kafka` daemon
 ```bash
-sh zk-admin.sh start
+sh kafka/zk-admin.sh start
 ```

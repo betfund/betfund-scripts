@@ -45,15 +45,6 @@ case "$1" in
     start-zookeeper
     start-kafka
     ;;
-  stop)
-    stop-kafka
-    stop-zookeeper
-    ;;
-  restart)
-    $0 stop
-    sleep 3
-    $0 start
-    ;;
-     echo "Usage: /etc/init.d/kafka {start|stop|restart|status}" && exit 1
+     echo "Usage: /etc/init.d/kafka {start}" && exit 1
     ;;
 esac
