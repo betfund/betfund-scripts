@@ -1,0 +1,2 @@
+# betfund-scripts
+Betfund configurations.
