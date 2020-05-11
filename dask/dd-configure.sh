@@ -56,7 +56,7 @@ function setavailability() {
   echo "---------------------------"
   echo ">> Setting node availability"
   echo "---------------------------"
-  export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk '{print $2}' | tr -d '"') >> /etc/profile
+  export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk '{print $2}' | tr -d '"') >>/etc/profile
   echo "$ZONES"
 }
 
