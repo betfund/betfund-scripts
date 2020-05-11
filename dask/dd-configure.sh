@@ -32,7 +32,7 @@ function setregion() {
   echo "---------------------------"
   echo ">> Setting cluster region"
   echo "---------------------------"
-  sudo sh -c "echo export REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}') >> /etc/profile"
+  export REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
   echo "$REGION"
 }
 
@@ -56,7 +56,7 @@ function setavailability() {
   echo "---------------------------"
   echo ">> Setting node availability"
   echo "---------------------------"
-  sudo sh -c "echo export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk '{print $2}' | tr -d '"') >> /etc/profile"
+  export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk '{print $2}' | tr -d '"') >> /etc/profile
   echo "$ZONES"
 }
 
