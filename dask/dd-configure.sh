@@ -18,6 +18,7 @@ function configurecluster() {
     exit 1
   else
     sudo sh -c "echo export NAME=$cluster.k8s.local >> /etc/profile"
+    echo "$NAME"
   fi
 }
 
@@ -30,9 +31,10 @@ function keygen() {
 
 function setregion() {
   echo "---------------------------"
-  echo ">> Setting cluster region"
+  echo ">> Setting Cluster Region"
   echo "---------------------------"
-  export REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
+  sudo sh -c "echo export REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}') >> /etc/profile"
+  source /etc/profile
   echo "$REGION"
 }
 
@@ -40,7 +42,7 @@ function configurebucket() {
   echo "---------------------------"
   echo ">> s3 Bucket Configuartion"
   echo "---------------------------"
-  echo "Please enter desired bucket cluster name, followed by [ENTER]"
+  echo "Please enter desired bucket name, followed by [ENTER]"
   read bucket
 
   if [[ $bucket == *['!'@#\$%^\&*()_+]* ]]; then
@@ -54,10 +56,10 @@ function configurebucket() {
 
 function setavailability() {
   echo "---------------------------"
-  echo ">> Setting node availability"
+  echo ">> Setter cluster zones:"
   echo "---------------------------"
-  export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk '{print $2}' | tr -d '"') >>/etc/profile
-  echo "$ZONES"
+  REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
+  sudo sh -c "echo export ZONES=$(aws ec2 describe-availability-zones --region $REGION | grep ZoneName | awk 'NR==1{print $2}' | tr -d '",') >> /etc/profile"
 }
 
 case "$1" in
@@ -67,7 +69,9 @@ configure)
   setregion
   configurebucket
   setavailability
-  echo -e "\nFinished!\n"
+  echo "**IMPORTANT**"
+  echo "EXECUTE THE BELOW COMMAND"
+  echo "source /etc/profile"
   ;;
 *)
   echo "Configure: {configure}" && exit 1
