@@ -3,7 +3,7 @@
 echo "
   __QQ
  (_)_'>
-_/    dd-configure
+_/    kops-configure
 "
 
 function configurecluster() {

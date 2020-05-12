@@ -6,4 +6,4 @@ echo "
 _/    dd-start
 "
 
-helm install my-dask dask/dask
+helm install --namespace kube-system --name tiller dask/dask
