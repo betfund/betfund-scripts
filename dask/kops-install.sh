@@ -3,7 +3,7 @@
 echo "
   __QQ
  (_)_'>
-_/    dd-install
+_/    kops-install
 "
 
 function installkops() {
