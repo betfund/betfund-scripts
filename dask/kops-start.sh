@@ -3,11 +3,11 @@
 echo "
   __QQ
  (_)_'>
-_/    dd-start
+_/    kops-start
 "
 
 kops create cluster $NAME \
-  --zones "$ZONES" \
+  --zones $ZONES \
   --authorization RBAC \
   --master-size t2.micro \
   --master-volume-size 10 \
